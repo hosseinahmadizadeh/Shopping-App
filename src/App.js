@@ -1,12 +1,13 @@
 import React from "react";
 import Layout from "./components/Layout/Layout";
+import Shopping from "./container/Shopping/Shopping";
 
 class App extends React.Component {
   render() {
     return (
       <div>
         <Layout>
-          <p>Shopping App</p>
+          <Shopping />
         </Layout>
       </div>
     );
