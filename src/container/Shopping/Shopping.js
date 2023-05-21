@@ -1,5 +1,6 @@
 import React from "react";
 import Wrapper from "../../hoc/Wrapper";
+import Controls from "../../components/Controls/Controls";
 
 class Shopping extends React.Component {
   state = {
@@ -14,7 +15,7 @@ class Shopping extends React.Component {
   render() {
     return (
       <Wrapper>
-        <div>Controls</div>
+        <Controls />
       </Wrapper>
     );
   }
