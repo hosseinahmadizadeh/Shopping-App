@@ -1,6 +1,7 @@
 import React from "react";
 import Wrapper from "../../hoc/Wrapper";
 import Controls from "../../components/Controls/Controls";
+import { type } from "@testing-library/user-event/dist/type";
 
 const prices = {
   product1: 56,
@@ -36,10 +37,29 @@ class Shopping extends React.Component {
     console.log("Add Product");
   };
 
+  removeProductHandler = (type) => {
+    const prevCount = this.state.products[type];
+    const updatedCount = prevCount - 1;
+    const updatedProducts = {
+      ...this.state.products,
+    };
+    updatedProducts[type] = updatedCount;
+
+    const priceSub = prices[type];
+    const prevPrice = this.state.totalPrice;
+    const newPrice = prevPrice - priceSub;
+
+    this.setState({ totalPrice: newPrice, products: updatedProducts });
+    console.log("Remove Product");
+  };
+
   render() {
     return (
       <Wrapper>
-        <Controls productAdd={this.addProductHandler} />
+        <Controls
+          productAdd={this.addProductHandler}
+          productRemove={this.removeProductHandler}
+        />
       </Wrapper>
     );
   }

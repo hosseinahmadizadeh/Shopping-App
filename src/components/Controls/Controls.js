@@ -18,6 +18,7 @@ const Controls = (props) => {
             key={item.title}
             title={item.title}
             add={() => props.productAdd(item.type)}
+            remove={() => props.productRemove(item.type)}
           />
         );
       })}
