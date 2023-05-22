@@ -1,7 +1,7 @@
 import React from "react";
 import Wrapper from "../../hoc/Wrapper";
 import Controls from "../../components/Controls/Controls";
-import { type } from "@testing-library/user-event/dist/type";
+import Modal from "../../components/UI/Modal/Modal";
 
 const prices = {
   product1: 56,
@@ -54,6 +54,7 @@ class Shopping extends React.Component {
   render() {
     return (
       <Wrapper>
+        <Modal />
         <Controls
           productAdd={this.addProductHandler}
           productRemove={this.removeProductHandler}

@@ -12,7 +12,7 @@ const products = [
 const Controls = (props) => {
   return (
     <div className="controls">
-      <div>
+      <div className="price">
         <p>Total Price: {props.price}</p>
       </div>
       {products.map((item) => {
@@ -25,6 +25,7 @@ const Controls = (props) => {
           />
         );
       })}
+      <button className="order-btn">Order</button>
     </div>
   );
 };
