@@ -20,6 +20,7 @@ class Shopping extends React.Component {
       product4: 0,
     },
     totalPrice: 0,
+    purchased: false,
   };
 
   addProductHandler = (type) => {
@@ -51,17 +52,20 @@ class Shopping extends React.Component {
 
     this.setState({ totalPrice: newPrice, products: updatedProducts });
   };
-
+  purchasedHandler = () => {
+    this.setState({ purchased: true });
+  };
   render() {
     return (
       <Wrapper>
-        <Modal>
+        <Modal show={this.state.purchased}>
           <Order products={this.state.products} />
         </Modal>
         <Controls
           productAdd={this.addProductHandler}
           productRemove={this.removeProductHandler}
           price={this.state.totalPrice}
+          order={this.purchasedHandler}
         />
       </Wrapper>
     );
