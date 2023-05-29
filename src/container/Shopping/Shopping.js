@@ -3,6 +3,8 @@ import Wrapper from "../../hoc/Wrapper";
 import Controls from "../../components/Controls/Controls";
 import Modal from "../../components/UI/Modal/Modal";
 import Order from "../../components/Order/Order";
+import axios from "../../axios-orders";
+import Loader from "../../components/UI/Loader/Loader";
 
 const prices = {
   product1: 56,
@@ -13,15 +15,21 @@ const prices = {
 
 class Shopping extends React.Component {
   state = {
-    products: {
-      product1: 0,
-      product2: 0,
-      product3: 0,
-      product4: 0,
-    },
+    products: null,
     totalPrice: 0,
     purchased: false,
+    loading: false,
   };
+
+  componentDidMount() {
+    axios
+      .get(
+        "https://react-redux-main-project-ed94d-default-rtdb.firebaseio.com/products.json"
+      )
+      .then((response) => {
+        this.setState({ products: response.data });
+      });
+  }
 
   addProductHandler = (type) => {
     const prevCount = this.state.products[type];
@@ -59,25 +67,56 @@ class Shopping extends React.Component {
     this.setState({ purchased: false });
   };
   purchaseContinueHandler = () => {
-    console.log("purchaseContinueHandler");
+    this.setState({ loading: true });
+
+    const order = {
+      products: this.state.products,
+      totalPrice: this.state.totalPrice,
+      customer: {
+        name: "Hossein Ahmadizadeh",
+        email: "hosseinahmadizadeh@gmail.com",
+      },
+    };
+    axios
+      .post("/orders.json", order)
+      .then((response) => {
+        this.setState({ loading: false, purchased: false });
+      })
+      .catch((error) => {
+        this.setState({ loading: false, purchased: false });
+      });
   };
+
   render() {
-    return (
-      <Wrapper>
-        <Modal show={this.state.purchased} modalClose={this.modalCloseHandler}>
-          <Order
-            products={this.state.products}
-            price={this.state.totalPrice}
-            continue={this.purchaseContinueHandler}
-            cancel={this.modalCloseHandler}
-          />
-        </Modal>
+    let order = null;
+    if (this.state.loading) {
+      order = <Loader />;
+    }
+    let controls = <Loader />;
+    if (this.state.products) {
+      controls = (
         <Controls
           productAdd={this.addProductHandler}
           productRemove={this.removeProductHandler}
           price={this.state.totalPrice}
           order={this.purchasedHandler}
         />
+      );
+      order = (
+        <Order
+          products={this.state.products}
+          price={this.state.totalPrice}
+          continue={this.purchaseContinueHandler}
+          cancel={this.modalCloseHandler}
+        />
+      );
+    }
+    return (
+      <Wrapper>
+        <Modal show={this.state.purchased} modalClose={this.modalCloseHandler}>
+          {order}
+        </Modal>
+        {controls}
       </Wrapper>
     );
   }
