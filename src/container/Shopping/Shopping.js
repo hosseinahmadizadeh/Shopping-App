@@ -68,7 +68,11 @@ class Shopping extends React.Component {
 
   purchaseContinueHandler = () => {
     // this.props.history.push("/checkout");
+<<<<<<< HEAD
     //
+=======
+    // v5 rrd
+>>>>>>> e828aaab93c09146b0c0b53566cb973ec3508583
     this.setState({ loading: true });
 
     const order = {
