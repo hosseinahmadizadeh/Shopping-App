@@ -2,7 +2,7 @@ import React from "react";
 import "./Navbar.css";
 import NavItems from "../NavItems/NavItems";
 
-const Navbar = (props) => {
+const Navbar = () => {
   return (
     <header className="navbar">
       <nav>
