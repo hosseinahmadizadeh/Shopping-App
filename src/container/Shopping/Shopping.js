@@ -20,7 +20,6 @@ class Shopping extends React.Component {
     purchased: false,
     loading: false,
   };
-
   componentDidMount() {
     axios
       .get(
@@ -66,7 +65,10 @@ class Shopping extends React.Component {
   modalCloseHandler = () => {
     this.setState({ purchased: false });
   };
+
   purchaseContinueHandler = () => {
+    // this.props.history.push("/checkout");
+    //
     this.setState({ loading: true });
 
     const order = {
@@ -86,7 +88,6 @@ class Shopping extends React.Component {
         this.setState({ loading: false, purchased: false });
       });
   };
-
   render() {
     let order = null;
     if (this.state.loading) {
