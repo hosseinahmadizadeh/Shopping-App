@@ -14,7 +14,13 @@ const Input = (props) => {
       );
       break;
     default:
-      inputElement = <input className="input-element" {...props} />;
+      inputElement = (
+        <input
+          className="input-element"
+          {...props.elementConfig}
+          value={props.value}
+        />
+      );
   }
   return <div className="input">{inputElement}</div>;
 };
