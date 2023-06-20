@@ -32,7 +32,17 @@ class Account extends React.Component {
       },
     },
   };
+  submitHandler = (event) => {
+    event.preventDefault();
 
+    const formData = {};
+
+    for (let item in this.state.form) {
+      formData[item] = this.state.form[item].value;
+    }
+
+    console.log(formData);
+  };
   inputChangeHandler = (event, inputElement) => {
     const updatedForm = {
       ...this.state.form,
@@ -57,7 +67,7 @@ class Account extends React.Component {
     return (
       <div className="account">
         <h2>Account</h2>
-        <form>
+        <form onSubmit={this.submitHandler}>
           {elementArray.map((item) => {
             return (
               <Input
