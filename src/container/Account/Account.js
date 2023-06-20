@@ -112,6 +112,7 @@ class Account extends React.Component {
                 elementType={item.config.elementType}
                 elementConfig={item.config.elementConfig}
                 value={item.config.value}
+                invalid={!item.config.valid}
                 change={(event) => this.inputChangeHandler(event, item.id)}
               />
             );
