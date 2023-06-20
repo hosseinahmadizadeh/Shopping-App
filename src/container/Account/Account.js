@@ -2,6 +2,7 @@ import React from "react";
 import "./Account.css";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
+import axios from "../../axios-orders";
 
 class Account extends React.Component {
   state = {
@@ -41,8 +42,16 @@ class Account extends React.Component {
       formData[item] = this.state.form[item].value;
     }
 
-    console.log(formData);
+    axios
+      .post("/account.json", formData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   inputChangeHandler = (event, inputElement) => {
     const updatedForm = {
       ...this.state.form,
