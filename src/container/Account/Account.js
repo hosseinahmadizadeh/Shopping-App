@@ -14,6 +14,10 @@ class Account extends React.Component {
           placeholder: "Name...",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       email: {
         elementType: "input",
@@ -22,6 +26,10 @@ class Account extends React.Component {
           placeholder: "Email...",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       password: {
         elementType: "input",
@@ -30,6 +38,10 @@ class Account extends React.Component {
           placeholder: "Password...",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
     },
   };
@@ -52,12 +64,28 @@ class Account extends React.Component {
       });
   };
 
+  checkValidation = (value, rules) => {
+    let isValid = false;
+    if (rules.required) {
+      isValid = value.trim() !== "";
+    }
+    return isValid;
+  };
+
   inputChangeHandler = (event, inputElement) => {
     const updatedForm = {
       ...this.state.form,
     };
     const updatedElement = { ...updatedForm[inputElement] };
+
     updatedElement.value = event.target.value;
+    updatedElement.valid = this.checkValidation(
+      updatedElement.value,
+      updatedElement.validation
+    );
+
+    console.log(updatedElement);
+
     updatedForm[inputElement] = updatedElement;
 
     this.setState({ form: updatedForm });
