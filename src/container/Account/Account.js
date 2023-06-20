@@ -2,7 +2,6 @@ import React from "react";
 import "./Account.css";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
-import { placeholder } from "@babel/types";
 
 class Account extends React.Component {
   state = {
@@ -33,6 +32,18 @@ class Account extends React.Component {
       },
     },
   };
+
+  inputChangeHandler = (event, inputElement) => {
+    const updatedForm = {
+      ...this.state.form,
+    };
+    const updatedElement = { ...updatedForm[inputElement] };
+    updatedElement.value = event.target.value;
+    updatedForm[inputElement] = updatedElement;
+
+    this.setState({ form: updatedForm });
+  };
+
   render() {
     const elementArray = [];
 
@@ -54,6 +65,7 @@ class Account extends React.Component {
                 elementType={item.config.elementType}
                 elementConfig={item.config.elementConfig}
                 value={item.config.value}
+                change={(event) => this.inputChangeHandler(event, item.id)}
               />
             );
           })}
