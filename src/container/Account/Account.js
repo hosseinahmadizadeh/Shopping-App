@@ -18,6 +18,7 @@ class Account extends React.Component {
           required: true,
         },
         valid: false,
+        used: false,
       },
       email: {
         elementType: "input",
@@ -30,6 +31,7 @@ class Account extends React.Component {
           required: true,
         },
         valid: false,
+        used: false,
       },
       password: {
         elementType: "input",
@@ -42,6 +44,7 @@ class Account extends React.Component {
           required: true,
         },
         valid: false,
+        used: false,
       },
     },
   };
@@ -84,7 +87,7 @@ class Account extends React.Component {
       updatedElement.validation
     );
 
-    console.log(updatedElement);
+    updatedElement.used = true;
 
     updatedForm[inputElement] = updatedElement;
 
@@ -113,6 +116,7 @@ class Account extends React.Component {
                 elementConfig={item.config.elementConfig}
                 value={item.config.value}
                 invalid={!item.config.valid}
+                used={item.config.used}
                 change={(event) => this.inputChangeHandler(event, item.id)}
               />
             );
